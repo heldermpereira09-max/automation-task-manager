@@ -2,6 +2,10 @@
 
 A Flask web application for creating, tracking, updating and deleting automation tasks through a simple web interface and REST API.
 
+## Application Preview
+
+![Automation Task Manager](screenshots/automation-task-manager.png)
+
 ## Features
 
 - Create automation tasks
