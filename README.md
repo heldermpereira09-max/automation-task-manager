@@ -1,214 +1,118 @@
-###### \# Automation Task Manager
+# Automation Task Manager
 
-###### 
+A Flask web application for creating, tracking, updating and deleting automation tasks through a simple web interface and REST API.
 
-###### A Flask web application for creating, tracking, updating and deleting automation tasks through a simple web interface and REST API.
+## Features
 
-###### 
+- Create automation tasks
+- Add task descriptions
+- View all tasks
+- Mark tasks as completed
+- Reopen completed tasks
+- Delete tasks
+- REST API endpoints
+- SQLite database persistence
+- Responsive web interface
 
-###### \## Features
+## Technologies
 
-###### 
+- Python
+- Flask
+- Flask-SQLAlchemy
+- SQLAlchemy
+- SQLite
+- HTML
+- CSS
+- JavaScript
+- REST API
 
-###### \- Create automation tasks
+## API Endpoints
 
-###### \- Add task descriptions
+### Get all tasks
 
-###### \- View all tasks
-
-###### \- Mark tasks as completed
-
-###### \- Reopen completed tasks
-
-###### \- Delete tasks
-
-###### \- REST API endpoints
-
-###### \- SQLite database persistence
-
-###### \- Responsive web interface
-
-###### 
-
-###### \## Technologies
-
-###### 
-
-###### \- Python
-
-###### \- Flask
-
-###### \- Flask-SQLAlchemy
-
-###### \- SQLAlchemy
-
-###### \- SQLite
-
-###### \- HTML
-
-###### \- CSS
-
-###### \- JavaScript
-
-###### \- REST API
-
-###### 
-
-###### \## API Endpoints
-
-###### 
-
-###### \### Get all tasks
-
-###### 
-
-###### GET /tasks
-
-###### 
-
-###### \### Create a task
-
-###### 
-
-###### POST /tasks
-
-###### 
-
-###### Example JSON:
-
-###### 
-
-###### ```json
-
-###### {
-
-###### &#x20; "title": "Automate weekly report",
-
-###### &#x20; "description": "Generate and process a weekly automation report."
-
-###### }
-
+```text
+GET /tasks
 ```
 
+### Create a task
 
-
-###### \### Update a task
-
-###### 
-
-###### PUT /tasks/<task\_id>
-
-###### 
-
-###### Example JSON:
-
-
-
-###### ```json
-
-###### {
-
-###### &#x20; "status": "completed"
-
-###### }
-
+```text
+POST /tasks
 ```
 
+Example JSON:
 
-
-###### \### Delete a task
-
-###### 
-
-###### DELETE /tasks/<task\_id>
-
-###### 
-
-###### \## Installation
-
-###### 
-
-###### Clone the repository:
-
-
-
-###### ```bash
-
-###### git clone https://github.com/heldermpereira09-max/automation-task-manager.git
-
-###### cd automation-task-manager
-
+```json
+{
+  "title": "Automate weekly report",
+  "description": "Generate and process a weekly automation report."
+}
 ```
 
-###### 
+### Update a task
 
-###### Create a virtual environment:
-
-
-
-###### ```bash
-
-###### python -m venv venv
-
+```text
+PUT /tasks/<task_id>
 ```
 
-###### 
+Example JSON:
 
-###### Activate it on Windows:
-
-
-
-###### ```powershell
-
-###### .\\venv\\Scripts\\Activate.ps1
-
+```json
+{
+  "status": "completed"
+}
 ```
 
-###### 
+### Delete a task
 
-###### Install the dependencies:
+```text
+DELETE /tasks/<task_id>
+```
 
+## Installation
 
-
-###### ```bash
-
-###### python -m pip install -r requirements.txt
-
-###### ```
-
-
-
-###### Run the application:
-
-###### 
+Clone the repository:
 
 ```bash
+git clone https://github.com/heldermpereira09-max/automation-task-manager.git
+cd automation-task-manager
+```
 
-###### python app.py
+Create a virtual environment:
 
-###### ```
+```bash
+python -m venv venv
+```
 
+Activate it on Windows:
 
+```powershell
+.\venv\Scripts\Activate.ps1
+```
 
-###### Open:
+Install the dependencies:
 
-###### 
+```bash
+python -m pip install -r requirements.txt
+```
 
-###### http://127.0.0.1:5000
+Run the application:
 
-###### 
+```bash
+python app.py
+```
 
-###### \## Project Purpose
+Open in your browser:
 
-###### 
+```text
+http://127.0.0.1:5000
+```
 
-###### This project was created as a practical demonstration of Python automation, Flask development, database integration, REST APIs and web application development.
+## Project Purpose
 
-###### 
+This project was created as a practical demonstration of Python automation, Flask development, database integration, REST APIs and web application development.
 
-###### \## Author
+## Author
 
-###### 
-
-###### Helder Pereira
+Helder Pereira
 
