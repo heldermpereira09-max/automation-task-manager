@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Task Manager</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Automation Task Manager</h1>
+            <p>Create, track and manage automation tasks.</p>
+        </header>
+
+        <section class="card">
+            <h2>Create Task</h2>
+
+            <form id="task-form">
+                <input
+                    type="text"
+                    id="title"
+                    placeholder="Task title"
+                    required
+                >
+
+                <textarea
+                    id="description"
+                    placeholder="Task description"
+                ></textarea>
+
+                <button type="submit">Add Task</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <div class="section-header">
+                <h2>Tasks</h2>
+                <button id="refresh-button" type="button">Refresh</button>
+            </div>
+
+            <div id="task-list">
+                <p>Loading tasks...</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const taskForm = document.getElementById("task-form");
+        const taskList = document.getElementById("task-list");
+        const refreshButton = document.getElementById("refresh-button");
+
+        async function loadTasks() {
+            const response = await fetch("/tasks");
+            const tasks = await response.json();
+
+            if (tasks.length === 0) {
+                taskList.innerHTML = "<p>No tasks yet.</p>";
+                return;
+            }
+
+            taskList.innerHTML = "";
+
+            tasks.forEach(task => {
+                const item = document.createElement("div");
+                item.className = "task";
+
+                item.innerHTML = `
+                    <div class="task-info">
+                        <h3>${task.title}</h3>
+                        <p>${task.description || "No description"}</p>
+                        <span class="status">${task.status}</span>
+                    </div>
+
+                    <div class="task-actions">
+                        <button onclick="toggleTask(${task.id}, '${task.status}')">
+                            ${task.status === "completed" ? "Reopen" : "Complete"}
+                        </button>
+
+                        <button class="danger" onclick="deleteTask(${task.id})">
+                            Delete
+                        </button>
+                    </div>
+                `;
+
+                taskList.appendChild(item);
+            });
+        }
+
+        taskForm.addEventListener("submit", async event => {
+            event.preventDefault();
+
+            const title = document.getElementById("title").value;
+            const description = document.getElementById("description").value;
+
+            await fetch("/tasks", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    title,
+                    description
+                })
+            });
+
+            taskForm.reset();
+            loadTasks();
+        });
+
+        async function toggleTask(id, currentStatus) {
+            const newStatus =
+                currentStatus === "completed"
+                    ? "pending"
+                    : "completed";
+
+            await fetch(`/tasks/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    status: newStatus
+                })
+            });
+
+            loadTasks();
+        }
+
+        async function deleteTask(id) {
+            await fetch(`/tasks/${id}`, {
+                method: "DELETE"
+            });
+
+            loadTasks();
+        }
+
+        refreshButton.addEventListener("click", loadTasks);
+
+        loadTasks();
+    </script>
+</body>
+</html>
